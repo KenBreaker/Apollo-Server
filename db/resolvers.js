@@ -1,19 +1,4 @@
-const users = [
-    {
-        rut: '19571602-1',
-        name: 'cuajito',
-        password: '123456',
-        type: 'admin'
-    }
-]
-
-const registros = [
-    {
-        medicion: '100',
-        unidad_de_medida: 'ML',
-        fecha_creacion: '2020-01-01'
-    }
-]
+const User = require('../models/User');
 
 const resolvers = {
     Query: {
@@ -21,9 +6,19 @@ const resolvers = {
         obtenerRegistros: () => registros
     },
     Mutation: {
-        crearUsuario: (_, {input}) => {
-            console.log(input)
-            return "creando.."
+        crearUsuario: async (_, {input}) => {
+            const { rut,name,password,type } = input;
+            const existeUsuario = await User.findOne({ rut });
+            if (existeUsuario) {
+                throw new Error('El usuario ya existe');
+            }
+            try {
+                let usuario = new User({ rut: rut, name: name, password: password, type: type });
+                usuario.save();
+                return usuario
+            } catch (error) {
+                throw new Error(error);
+            }
         }
     } 
 }

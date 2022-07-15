@@ -2,16 +2,16 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
     type User {
-        rut: String
-        name: String
-        password: String
+        rut: String,
+        name: String,
+        password: String,
         type: String
     },
     input UsuarioInput {
-        rut: String
-        name: String
-        password: String
-        type: String
+        rut: String!,
+        name: String!,
+        password: String!,
+        type: String!,
     },
     type Registro {
         medicion: Float
@@ -23,7 +23,7 @@ const typeDefs = gql`
         obtenerRegistros: [Registro]
     },
     type Mutation {
-        crearUsuario(input: UsuarioInput): String
+        crearUsuario(input: UsuarioInput): User
     }
     `;
 
