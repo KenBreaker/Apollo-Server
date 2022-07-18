@@ -5,13 +5,16 @@ const typeDefs = gql`
         rut: String,
         name: String,
         password: String,
-        type: String
+        type: String,
+        average: Float,
     },
     input UsuarioInput {
         rut: String!,
         name: String!,
         password: String!,
         type: String!,
+        average: Float
+        
     },
     input AutenticarInput {
         rut: String!,

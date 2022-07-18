@@ -17,6 +17,9 @@ const UsersSchema = new mongoose.Schema({
     },
     type: { 
         type: String,
+    },
+    average: {
+        type: Number
     }
 });
 
