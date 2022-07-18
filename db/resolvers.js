@@ -25,7 +25,6 @@ const resolvers = {
             return registros;
         }
 
-
     },
     Mutation: {
         crearUsuario: async (_, {input}) => {
@@ -71,9 +70,16 @@ const resolvers = {
             } catch (error) {
                 throw new Error(error);
             }
+        },
+
+        actualizarUsuario: async (_, {input}) => {
+            let { rut,average } = input;
+            const existeUsuario = await User.findOneAndUpdate({ rut }, { average: average });
+            if (!existeUsuario) {
+                throw new Error('El usuario no existe');
+            }
+            return existeUsuario;
         }
-
-
     }
 }
 module.exports = resolvers;

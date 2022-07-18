@@ -10,9 +10,9 @@ const typeDefs = gql`
     },
     input UsuarioInput {
         rut: String!,
-        name: String!,
-        password: String!,
-        type: String!,
+        name: String,
+        password: String,
+        type: String,
         average: Float
         
     },
@@ -48,7 +48,7 @@ const typeDefs = gql`
         crearUsuario(input: UsuarioInput): User
         autenticarUsuario(input: AutenticarInput): Token
         crearRegistro(input: RegistroInput): Registro
-
+        actualizarUsuario(input: UsuarioInput): User
     }
 
     `;
