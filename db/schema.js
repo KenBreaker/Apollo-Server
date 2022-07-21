@@ -43,6 +43,7 @@ const typeDefs = gql`
         obtenerUser(token: String!): User
         obtenerUser_ByRut(rut: String!): User
         obtenerRegistros_ByUserID(ID: ID!): [Registro]
+        obtenerUsers: [User]
     },
     type Mutation {
         crearUsuario(input: UsuarioInput): User

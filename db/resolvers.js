@@ -10,8 +10,6 @@ const crearToken = (usuario, secreta, expiresIn) => {
 
 const resolvers = {
     Query: {
-        obtenerUsuarios: () => users,
-        obtenerRegistros: () => registros,
         obtenerUser: async (_, { token }) => { 
             const Usuario = await jwt.verify(token, process.env.SECRETA);
             return Usuario;
@@ -23,7 +21,12 @@ const resolvers = {
         obtenerRegistros_ByUserID: async (_, { ID }) => {
             const registros = await Registro.find({ User: ID });
             return registros;
-        }
+        },
+        obtenerUsers: async () => {
+            const users = await User.find();
+            return users
+        }  
+    
 
     },
     Mutation: {
@@ -82,21 +85,5 @@ const resolvers = {
         }
     }
 }
-module.exports = resolvers;
-
-const users = [
-    {
-        rut: '12345678-9',
-        name: 'Juan',
-        password: '123456',
-        type: 'admin'
-    },
-    {
-        rut: '12345678-8',
-        name: 'Pedro',
-        password: '123456',
-        type: 'user'
-    }
-]
 
 module.exports = resolvers;
