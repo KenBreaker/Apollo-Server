@@ -12,14 +12,15 @@ const resolvers = {
     Query: {
         obtenerUser: async (_, { token }) => { 
             const Usuario = await jwt.verify(token, process.env.SECRETA);
+            console.log(Usuario);
             return Usuario;
         },
         obtenerUser_ByRut: async (_, { rut }) => {
             const user = await User.findOne({ rut });
             return user;
         },
-        obtenerRegistros_ByUserID: async (_, { ID }) => {
-            const registros = await Registro.find({ User: ID });
+        obtenerRegistros_ByUserRut: async (_, { rut }) => {
+            const registros = await Registro.find({ user: rut });
             return registros;
         },
         obtenerUsers: async () => {
@@ -50,6 +51,7 @@ const resolvers = {
 
         autenticarUsuario: async (_, {input}) => {
             let { rut,password } = input;
+            console.log("aca")
             const existeUsuario = await User.findOne({ rut });
             if (!existeUsuario) {
                 throw new Error('El usuario no existe');
@@ -65,9 +67,9 @@ const resolvers = {
         },
 
         crearRegistro: async (_, {input}) => {
-            let { medicion,unidad_de_medida,fecha_creacion,User } = input;
+            let { medicion,unidad_de_medida,fecha_creacion,user } = input;
             try {
-                let registro = new Registro({ medicion: medicion,unidad_de_medida: unidad_de_medida,fecha_creacion: fecha_creacion,User: User });
+                let registro = new Registro({ medicion: medicion,unidad_de_medida: unidad_de_medida,fecha_creacion: fecha_creacion,user: user });
                 registro.save();
                 return registro
             } catch (error) {

@@ -13,9 +13,8 @@ const RegistroSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    User: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    user: {
+        type: String,
         required: true
     }
 });
