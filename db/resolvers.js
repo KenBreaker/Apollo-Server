@@ -4,15 +4,14 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const crearToken = (usuario, secreta, expiresIn) => {
-    const { rut, name,type } = usuario;
-    return jwt.sign( { rut, name,type }, secreta, { expiresIn } )
+    const { rut, name,type,average } = usuario;
+    return jwt.sign( { rut, name,type,average }, secreta, { expiresIn } )
 }
 
 const resolvers = {
     Query: {
         obtenerUser: async (_, { token }) => { 
             const Usuario = await jwt.verify(token, process.env.SECRETA);
-            console.log(Usuario);
             return Usuario;
         },
         obtenerUser_ByRut: async (_, { rut }) => {
@@ -51,7 +50,6 @@ const resolvers = {
 
         autenticarUsuario: async (_, {input}) => {
             let { rut,password } = input;
-            console.log("aca")
             const existeUsuario = await User.findOne({ rut });
             if (!existeUsuario) {
                 throw new Error('El usuario no existe');

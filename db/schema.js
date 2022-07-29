@@ -25,7 +25,7 @@ const typeDefs = gql`
         medicion: Float,
         unidad_de_medida: String,
         fecha_creacion: String,
-        user: String
+        user: String!
     },
     type Token {
         token: String
@@ -43,7 +43,7 @@ const typeDefs = gql`
     type Query {
         obtenerUser(token: String!): User
         obtenerUser_ByRut(rut: String!): User
-        obtenerRegistros_ByUserRut(Rut: String!): [Registro]
+        obtenerRegistros_ByUserRut(rut: String!): [Registro]
         obtenerUsers: [User]
     },
     type Mutation {
