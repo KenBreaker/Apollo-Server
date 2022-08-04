@@ -9,6 +9,18 @@ const typeDefs = gql`
         type: String,
         average: Float,
     },
+    type Message {
+        rut_from: String,
+        rut_to: String,
+        content: String,
+        created: String,
+    },
+    input MessageInput {
+        rut_from: String,
+        rut_to: String,
+        content: String,
+        created: String,
+    },
     input UsuarioInput {
         rut: String!,
         name: String,
@@ -45,8 +57,10 @@ const typeDefs = gql`
         obtenerUser_ByRut(rut: String!): User
         obtenerRegistros_ByUserRut(rut: String!): [Registro]
         obtenerUsers: [User]
+        obtenerMensajes(rut_from: String!) : [Message]
     },
     type Mutation {
+        crearMensaje(input: MessageInput): Message
         crearUsuario(input: UsuarioInput): User
         autenticarUsuario(input: AutenticarInput): Token
         crearRegistro(input: RegistroInput): Registro

@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Registro = require('../models/Registro');
+const Message = require('../models/Message');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -25,9 +26,11 @@ const resolvers = {
         obtenerUsers: async () => {
             const users = await User.find();
             return users
-        }  
-    
-
+        },
+        obtenerMensajes: async (_, { rut_from }) => {
+            const messages = Message.find({ rut_from });
+            return messages;
+        }
     },
     Mutation: {
         crearUsuario: async (_, {input}) => {
@@ -82,7 +85,22 @@ const resolvers = {
                 throw new Error('El usuario no existe');
             }
             return existeUsuario;
+        },
+
+        crearMensaje: async (_, {input}) => {
+            let {rut_from,rut_to,content} = input;
+            try{
+                let message = new Message({ rut_from: rut_from,rut_to: rut_to,content: content });
+                message.save();
+                return message
+            } catch (error){
+                throw new Error(error);
+            }
         }
+
+
+        
+
     }
 }
 
