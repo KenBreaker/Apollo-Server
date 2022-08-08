@@ -28,8 +28,10 @@ const resolvers = {
             return users
         },
         obtenerMensajes: async (_, { rut_from }) => {
-            const messages = Message.find({ rut_from });
-            return messages;
+            const mensajes = await Message.find({ rut_to: rut_from });
+            const mensajes_ = await Message.find({ rut_from: rut_from });
+            mensajes.push(...mensajes_)
+            return mensajes;
         }
     },
     Mutation: {
