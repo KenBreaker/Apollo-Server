@@ -31,6 +31,11 @@ const resolvers = {
             const mensajes = await Message.find({ rut_to: rut_from });
             const mensajes_ = await Message.find({ rut_from: rut_from });
             mensajes.push(...mensajes_)
+
+            mensajes.sort((a, b) => {
+                return a.created - b.created
+            })
+
             return mensajes;
         }
     },
